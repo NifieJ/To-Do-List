@@ -1,0 +1,202 @@
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2024 by NifieJ (http://jsbin.com/zakatab/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<style id="jsbin-css">
+body {
+  font-family: lexie readable;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+.container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+#task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#task-list li {
+  cursor: pointer;
+  margin-bottom: 5px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+#task-list li input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+#add-btn {
+  background-color: #4CAF50; /* Green */
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: lexie readable;
+}
+
+#clear-btn {
+  background-color: #ccc; /* Grey */
+  color: #333;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: lexie readable;
+}
+
+#delete-selected-btn {
+  background-color: #f44336; /* Red */
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: lexie readable;
+}
+
+#add-btn:hover {
+  background-color: #3e8e41;
+}
+
+#clear-btn:hover {
+  background-color: #aaa;
+}
+
+#delete-selected-btn:hover {
+  background-color: #c4362b;
+}
+
+
+/* Center everything */
+html, body {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+``"
+
+
+
+
+</style>
+<div class="container">
+<h1>To-Do List</h1>
+<input id="task" type="text">
+<button id="add-btn">Add Task</button>
+<button id="delete-selected-btn">Delete Selected</button>
+<button id="clear-btn">Clear All</button>
+<ul id="task-list"></ul>
+</div>
+
+<script id="jsbin-javascript">
+let selectedTasks = [];
+let completedTasks = [];
+
+document.getElementById("add-btn").addEventListener("click", function() {
+  var task = document.getElementById("task").value;
+  var taskList = document.getElementById("task-list");
+  var newTask = document.createElement("li");
+  var checkBox = document.createElement("input");
+  checkBox.type = "checkbox";
+  checkBox.dataset.taskId = taskList.children.length;
+  
+  newTask.appendChild(checkBox);
+  newTask.appendChild(document.createTextNode(task));
+  newTask.dataset.selected = "false";
+  newTask.dataset.completed = "false";
+  taskList.appendChild(newTask);
+
+  checkBox.addEventListener("change", function() {
+    if (this.checked) {
+      newTask.style.textDecoration = "line-through";
+      newTask.dataset.completed = "true";
+      completedTasks.push(newTask);
+    } else {
+      newTask.style.textDecoration = "";
+      newTask.dataset.completed = "false";
+      completedTasks = completedTasks.filter(task => task !== newTask);
+    }
+  });
+
+  newTask.addEventListener("click", function() {
+    if (newTask.dataset.selected === "false") {
+      newTask.style.background = "lightblue";
+      newTask.dataset.selected = "true";
+      selectedTasks.push(newTask);
+    } else {
+      newTask.style.background = "";
+      newTask.dataset.selected = "false";
+      selectedTasks = selectedTasks.filter(task => task !== newTask);
+    }
+  });
+
+  document.getElementById("task").value = "";
+});
+
+document.getElementById("delete-btn").addEventListener("click", function() {
+  selectedTasks.forEach(task => task.remove());
+  selectedTasks = [];
+});
+
+document.getElementById("clear-btn").addEventListener("click", function() {
+  document.getElementById("task-list").innerHTML = "";
+  selectedTasks = [];
+ 
+  
+  const taskList = document.getElementById("task-list");
+
+taskList.addEventListener("scroll", function() {
+  if (taskList.scrollTop + taskList.offsetHeight >= taskList.scrollHeight) {
+    taskList.scrollTop = 0;
+  }
+});
+
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+});
+</script>
